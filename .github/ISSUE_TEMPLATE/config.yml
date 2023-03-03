@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 有关主题和插件的问题
+    url: https://github.com/vuepress-theme-hope/vuepress-theme-hope/discussions/new
+    about: 请在讨论中提问。
+
+  - name: 有关 v1 主题和插件的问题
+    url: https://github.com/vuepress-theme-hope/vuepress-theme-hope-v1/
+    about: 请在 V1 存储库中提问。
+
+  - name: 电报组
+    url: https://t.me/vuepressthemehope
+    about: 通过电报与我们联系
+
+  - name: 官方 QQ 群
+    url: https://jq.qq.com/?_wv=1027&k=rATJyxGK
+    about: "加入主题官方 QQ 群: 1003437555"

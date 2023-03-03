@@ -1,0 +1,42 @@
+name: issue-daily
+
+on:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  issue-label-stale:
+    name: label stale issues
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-cool/issues-helper@v3
+        with:
+          actions: check-inactive
+          token: ${{ secrets.ACCESS_TOKEN }}
+          inactive-day: 4
+          inactive-label: stale
+          exclude-labels: bug, upstream bug, documentation, enhancement, need reproduction, stale
+          body: |
+            此问题标记为“过时”，因为它最近没有活动。标记为“过时”的议题如果在 3 天内没有活动，则会关闭。
+
+  issue-close-stale:
+    name: close stale issues
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-cool/issues-helper@v3
+        with:
+          actions: close-issues
+          token: ${{ secrets.ACCESS_TOKEN }}
+          labels: stale
+          inactive-day: 3
+
+  issue-close-need-reproduction:
+    name: close need-reproduction issues
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-cool/issues-helper@v3
+        with:
+          actions: close-issues
+          token: ${{ secrets.ACCESS_TOKEN }}
+          labels: needs reproduction
+          inactive-day: 3

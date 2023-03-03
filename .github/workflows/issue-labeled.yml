@@ -1,0 +1,31 @@
+name: issue-labeled
+
+on:
+  issues:
+    types:
+      - labeled
+
+jobs:
+  issue-invalid:
+    name: close invalid issue
+    if: github.event.label.name == 'invalid'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-cool/issues-helper@v3
+        with:
+          actions: close-issue, create-comment
+          token: ${{ secrets.ACCESS_TOKEN }}
+          body: |
+            你好 @${{ github.event.issue.user.login }}. 此问题被标记为“无效”并已关闭。请确保您报告问题并遵循问题模板。
+
+  issue-need-reproduction:
+    name: need reproduction
+    if: github.event.label.name == 'needs reproduction'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-cool/issues-helper@v3
+        with:
+          actions: create-comment
+          token: ${{ secrets.ACCESS_TOKEN }}
+          body: |
+            你好 @${{ github.event.issue.user.login }}. 请提供 [minimal reproduction](https://stackoverflow.com/help/minimal-reproducible-example) 使用 GitHub 存储库或 [vuepress-theme-hope.github.io/v2-new](https://vuepress-theme-hope.github.io/v2-new). 标有“需要复制”的期刊如果在 3 天内没有活动，将关闭。

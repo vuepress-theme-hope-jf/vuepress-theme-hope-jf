@@ -1,0 +1,115 @@
+{
+  "name": "vuepress-theme-hope-jf-root",
+  "version": "2.0.0-beta.186",
+  "private": true,
+  "description": "具有大量功能的 VuePress 主题",
+  "type": "module",
+  "workspaces": [
+    "demo/*",
+    "docs/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "cross-env NODE_ENV=production pnpm run --stream -r build",
+    "build:no-bundle": "concurrently \"tsc -b tsconfig.build.json\" \"pnpm run copy\"",
+    "clean": "pnpm run --stream -r clean",
+    "commit": "pnpm git-cz",
+    "copy": "pnpm run --parallel -r copy",
+    "dev": "concurrently \"tsc -b tsconfig.build.json --watch\" \"pnpm run dev:copy\"",
+    "dev:copy": "pnpm run --parallel -r dev:copy",
+    "docs:vite-build": "pnpm run -r docs:vite-build",
+    "docs:webpack-build": "pnpm run -r docs:vite-build",
+    "lint": "pnpm lint:prettier --write && pnpm lint:eslint --fix && pnpm lint:stylelint --fix",
+    "lint:check": "pnpm lint:prettier && pnpm lint:eslint && pnpm lint:stylelint",
+    "lint:eslint": "eslint . --ext .js,.ts,.vue",
+    "lint:md": "markdownlint **/*.md",
+    "lint:prettier": "prettier --check .",
+    "lint:stylelint": "stylelint packages/*/src/**/*.{scss,css}",
+    "packages:bootstrap": "tsx scripts/bootstrap.ts",
+    "packages:check-update": "pnpm dlx npm-check-updates -u --deep --timeout 600000",
+    "packages:update": "pnpm up -r",
+    "prepare": "husky install",
+    "release": "pnpm clean && pnpm build && pnpm release:bump && pnpm release:publish && pnpm release:sync",
+    "release:bump": "bumpp -r --execute=\"pnpm commit-and-tag-version && git add CHANGELOG.md\" --commit \"chore(release): publish v%s\" --all --tag --push",
+    "release:publish": "cross-env NODE_OPTIONS=\"--experimental-json-modules\" tsx scripts/release.ts",
+    "release:sync": "cross-env NODE_OPTIONS=\"--experimental-json-modules\" tsx scripts/sync.ts",
+    "test": "vitest --coverage"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-git"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.4.4",
+    "@commitlint/config-conventional": "17.4.4",
+    "@rollup/plugin-commonjs": "24.0.1",
+    "@rollup/plugin-node-resolve": "15.0.1",
+    "@rollup/plugin-replace": "5.0.2",
+    "@types/inquirer": "9.0.3",
+    "@types/node": "18.14.4",
+    "@typescript-eslint/eslint-plugin": "5.54.0",
+    "@typescript-eslint/parser": "5.54.0",
+    "@vitest/coverage-c8": "0.29.2",
+    "@vue/eslint-config-typescript": "11.0.2",
+    "bumpp": "9.0.0",
+    "commit-and-tag-version": "11.1.0",
+    "commitizen": "4.3.0",
+    "concurrently": "7.6.0",
+    "cpx2": "4.2.0",
+    "cross-env": "7.0.3",
+    "cz-git": "1.5.1",
+    "esbuild": "0.17.10",
+    "eslint": "8.35.0",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-vue": "9.9.0",
+    "execa": "7.0.0",
+    "http-server": "14.1.1",
+    "husky": "8.0.3",
+    "inquirer": "9.1.4",
+    "magic-string": "0.30.0",
+    "markdownlint-cli": "0.33.0",
+    "nano-staged": "0.8.0",
+    "ora": "6.1.2",
+    "picocolors": "1.0.0",
+    "prettier": "2.8.4",
+    "rimraf": "4.1.3",
+    "rollup": "3.18.0",
+    "rollup-plugin-copy": "3.4.0",
+    "rollup-plugin-dts": "5.2.0",
+    "rollup-plugin-esbuild": "5.0.0",
+    "sort-package-json": "2.4.1",
+    "stylelint": "15.2.0",
+    "stylelint-config-hope": "2.0.1",
+    "tslib": "2.5.0",
+    "tsx": "3.12.3",
+    "typescript": "4.9.5",
+    "vitest": "0.29.2"
+  },
+  "packageManager": "pnpm@7.28.0",
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0",
+    "npm": ">=8",
+    "pnpm": ">=7"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search",
+        "@types/react",
+        "eslint-plugin-import",
+        "eslint-plugin-n",
+        "eslint-plugin-promise",
+        "react",
+        "react-dom",
+        "webpack"
+      ]
+    },
+    "patchedDependencies": {
+      "@types/katex@0.16.0": "patches/@types__katex@0.16.0.patch",
+      "mitt@3.0.0": "patches/mitt@3.0.0.patch"
+    }
+  }
+}
