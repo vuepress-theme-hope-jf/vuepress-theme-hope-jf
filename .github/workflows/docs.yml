@@ -66,7 +66,7 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          repository-name: topjf/hope
+          repository-name: vuepress-theme-hope-jf/hope
           branch: gh-pages
           folder: dist
           token: ${{ secrets.ACCESS_TOKEN }}
