@@ -39,7 +39,7 @@ jobs:
       - name: Build GitHub Pages Demo
         env:
           BASE: /${{ matrix.name }}-demo/
-          HOSTNAME: https://topjf.github.io/
+          HOSTNAME: https://vuepress-theme-hope-jf.github.io/
         run: |-
           pnpm --filter theme-${{ matrix.name }}-demo demo:vite-build
           > demo/theme-${{ matrix.name }}/dist/.nojekyll
@@ -47,7 +47,7 @@ jobs:
       - name: Deploy to gh pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          repository-name: vuepress-theme-hope/${{ matrix.name }}-demo
+          repository-name: vuepress-theme-hope-jf/${{ matrix.name }}-demo
           branch: gh-pages
           folder: demo/theme-${{ matrix.name }}/dist
           token: ${{ secrets.ACCESS_TOKEN }}
