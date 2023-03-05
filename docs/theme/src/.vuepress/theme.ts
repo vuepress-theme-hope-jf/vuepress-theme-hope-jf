@@ -13,7 +13,7 @@ import {
 const IS_NETLIFY = "NETLIFY" in process.env;
 
 export default theme("theme", {
-  repo: "vuepress-theme-hope/vuepress-theme-hope",
+  repo: "vuepress-theme-hope-jf/vuepress-theme-hope-jf",
 
   blog: {
     name: "VuePress Theme Hope",
